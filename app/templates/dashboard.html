@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - SecureMail AI{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+    <div>
+        <h1 class="fw-bold m-0" style="font-family: 'Outfit';">Dashboard</h1>
+        <p class="text-secondary m-0">Monitor email scan results and security statistics. &amp; logs</p>
+    </div>
+    <div>
+        <a href="{{ url_for('scanner.scan') }}" class="btn btn-cyber d-flex align-items-center gap-2">
+            <i class="fa-solid fa-plus"></i> Scan Email
+        </a>
+    </div>
+</div>
+
+<!-- Metrics Row -->
+<div class="row g-4 mb-4">
+    <div class="col-sm-6 col-lg-3">
+        <div class="cyber-card card-accent">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-secondary fw-bold text-uppercase small mb-1">Total Scans</h6>
+                    <h2 class="fw-bold mb-0">{{ total_scans }}</h2>
+                </div>
+                <div class="fs-1 text-info opacity-75">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="cyber-card card-safe">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-secondary fw-bold text-uppercase small mb-1">Legitimate Emails</h6>
+                    <h2 class="fw-bold mb-0">{{ safe_count }}</h2>
+                </div>
+                <div class="fs-1 text-success opacity-75">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="cyber-card card-spam">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-secondary fw-bold text-uppercase small mb-1">Spam Emails</h6>
+                    <h2 class="fw-bold mb-0">{{ spam_count }}</h2>
+                </div>
+                <div class="fs-1 text-warning opacity-75">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="cyber-card card-phish">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h6 class="text-secondary fw-bold text-uppercase small mb-1">Phishing Emails</h6>
+                    <h2 class="fw-bold mb-0">{{ phish_count }}</h2>
+                </div>
+                <div class="fs-1 text-danger opacity-75">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Scans Row -->
+<div class="cyber-card card-accent mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h5 class="fw-bold m-0"><i class="fa-solid fa-list-check me-2 text-info"></i>Recent Email Scans</h5>
+        <a href="{{ url_for('scanner.history') }}" class="text-info small fw-bold text-decoration-none">View All &rarr;</a>
+    </div>
+    
+    {% if recent_scans %}
+        <div class="table-responsive">
+            <table class="table cyber-table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Date &amp; Time</th>
+                        <th>Subject</th>
+                        
+                        <th>Result</th>
+                        <th>Detection Confidence</th>
+                        <th>Risk Score</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for scan in recent_scans %}
+                        <tr>
+                            <td class="small text-secondary">{{ scan.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td class="fw-medium text-light text-truncate" style="max-width: 250px;">{{ scan.subject }}</td>
+                            
+                            <td>
+                                {% if scan.prediction == 'Safe' %}
+                                    <span class="badge badge-cyber badge-safe">Legitimate</span>
+                                {% elif scan.prediction == 'Spam' %}
+                                    <span class="badge badge-cyber badge-spam">Spam</span>
+                                {% else %}
+                                    <span class="badge badge-cyber badge-phish">Phishing</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="fw-bold text-info">{{ scan.confidence }}%</span>
+                            </td>
+                            <td>
+                                <span class="fw-bold {% if scan.risk_score < 30 %}text-success{% elif scan.risk_score < 70 %}text-warning{% else %}text-danger{% endif %}">{{ scan.risk_score }}%</span>
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ url_for('scanner.result', scan_id=scan.id) }}" class="btn btn-outline-cyber btn-sm py-1 px-3">
+                                    View Report
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="text-center py-4">
+            <p class="text-secondary mb-3">No scans available yet. Run your first email classification scan.</p>
+            <a href="{{ url_for('scanner.scan') }}" class="btn btn-cyber px-4">Start First Scan</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

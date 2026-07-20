@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row align-items-center justify-content-center py-5">
+    <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0">
+        <h1 class="display-4 fw-extrabold mb-3" style="font-family: 'Outfit'; font-weight: 800;">
+            AI-Powered <span style="color: var(--accent);">Email Spam and Phishing Detection System</span>
+        </h1>
+        <p class="lead text-secondary mb-4">
+            SecureMail AI helps detect spam and phishing emails using Machine Learning and heuristic analysis. Analyze suspicious emails, assess their risk, and receive security recommendations in seconds.
+        </p>
+        <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+            <a href="{{ url_for('auth.register') }}" class="btn btn-cyber btn-lg px-4">Get Started For Free</a>
+            <a href="{{ url_for('auth.login') }}" class="btn btn-outline-cyber btn-lg px-4">Login</a>
+        </div>
+    </div>
+    <div class="col-lg-5 text-center">
+        <!-- Visual Shield Animation / Icon -->
+        <div class="p-5 d-inline-block rounded-circle" style="background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%);">
+            <i class="fa-solid fa-shield-virus display-1 brand-icon" style="font-size: 10rem; color: var(--accent); filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.4));"></i>
+        </div>
+    </div>
+</div>
+
+<hr class="border-secondary my-5" style="opacity: 0.15;">
+
+<!-- Features Grid -->
+<div class="row g-4 justify-content-center">
+    <div class="col-md-4">
+        <div class="cyber-card card-accent h-100">
+            <div class="fs-1 text-info mb-3">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+            <h3>AI Email Detection</h3>
+            <p class="text-secondary mb-0">
+                Uses a Machine Learning model to classify emails as Safe, Spam, or Phishing with confidence scores.
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="cyber-card card-phish h-100">
+            <div class="fs-1 text-danger mb-3">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+            </div>
+            <h3>Threat Analytics</h3>
+            <p class="text-secondary mb-0">
+                Identifies suspicious keywords, malicious links, urgent language, and phishing indicators.
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="cyber-card card-safe h-100">
+            <div class="fs-1 text-success mb-3">
+                <i class="fa-solid fa-file-pdf"></i>
+            </div>
+            <h3> PDF Security Reports</h3>
+            <p class="text-secondary mb-0">
+               Generate detailed reports containing scan results, risk scores, and security recommendations.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

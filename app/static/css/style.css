@@ -1,0 +1,309 @@
+/* SecureMail AI Custom Stylesheet */
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+:root {
+    /* Dark Mode Defaults */
+    --bg-primary: #090d16;
+    --bg-secondary: #0f172a;
+    --bg-tertiary: #1e293b;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent: #38bdf8; /* Cyan */
+    --accent-glow: rgba(56, 189, 248, 0.15);
+    --border-color: #334155;
+    
+    --safe: #10b981;
+    --safe-bg: rgba(16, 185, 129, 0.1);
+    --spam: #f59e0b;
+    --spam-bg: rgba(245, 158, 11, 0.1);
+    --phish: #ef4444;
+    --phish-bg: rgba(239, 68, 68, 0.1);
+    
+    --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent: #0284c7; /* Sky Blue */
+    --accent-glow: rgba(2, 132, 199, 0.1);
+    --border-color: #e2e8f0;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    transition: var(--transition);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Base Layout */
+main {
+    flex: 1;
+}
+
+/* Navbar Customization */
+.navbar-custom {
+    background-color: rgba(15, 23, 42, 0.8) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.8rem 1.5rem;
+}
+[data-theme="light"] .navbar-custom {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    font-size: 1.5rem;
+    color: var(--text-primary) !important;
+}
+
+.brand-icon {
+    color: var(--accent);
+    filter: drop-shadow(0 0 8px var(--accent));
+}
+
+.nav-link {
+    color: var(--text-secondary) !important;
+    font-weight: 500;
+    transition: var(--transition);
+    border-radius: 6px;
+    padding: 0.5rem 1rem !important;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--text-primary) !important;
+    background-color: var(--accent-glow);
+}
+
+/* Cyber Dashboard Cards */
+.cyber-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.cyber-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: transparent;
+    transition: var(--transition);
+}
+
+.cyber-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="light"] .cyber-card:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+}
+
+.cyber-card.card-safe::before { background: var(--safe); }
+.cyber-card.card-spam::before { background: var(--spam); }
+.cyber-card.card-phish::before { background: var(--phish); }
+.cyber-card.card-accent::before { background: var(--accent); }
+
+/* Buttons styling */
+.btn-cyber {
+    background-color: var(--accent);
+    color: #000000;
+    font-weight: 600;
+    border: 1px solid var(--accent);
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    transition: var(--transition);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.btn-cyber:hover {
+    background-color: transparent;
+    color: var(--accent);
+    box-shadow: 0 0 15px var(--accent);
+}
+
+.btn-outline-cyber {
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.btn-outline-cyber:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* Frosted glass layout inputs */
+.cyber-input {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: var(--transition);
+}
+.cyber-input::placeholder {
+    color: rgba(255, 255, 255, 0.75) !important;
+    opacity: 1 !important;
+    font-weight: 400;
+}
+
+.cyber-input:focus {
+    background-color: var(--bg-tertiary);
+    border-color: var(--accent);
+    color: var(--text-primary);
+    box-shadow: 0 0 8px var(--accent-glow);
+    outline: none;
+}
+
+/* Risk Progress Bar */
+.risk-progress {
+    height: 12px;
+    background-color: var(--bg-tertiary);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.risk-progress-bar {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1s ease-in-out;
+}
+
+.risk-safe { background-color: var(--safe); box-shadow: 0 0 8px var(--safe); }
+.risk-spam { background-color: var(--spam); box-shadow: 0 0 8px var(--spam); }
+.risk-phish { background-color: var(--phish); box-shadow: 0 0 8px var(--phish); }
+
+/* Badges styling */
+.badge-safe { background-color: var(--safe-bg); color: var(--safe); border: 1px solid var(--safe); }
+.badge-spam { background-color: var(--spam-bg); color: var(--spam); border: 1px solid var(--spam); }
+.badge-phish { background-color: var(--phish-bg); color: var(--phish); border: 1px solid var(--phish); }
+
+.badge-cyber {
+    padding: 0.4em 0.8em;
+    font-weight: 600;
+    border-radius: 6px;
+    font-size: 0.75rem;
+}
+
+/* File upload drag-and-drop */
+.upload-container {
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 2.5rem;
+    text-align: center;
+    background-color: rgba(15, 23, 42, 0.2);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.upload-container:hover, .upload-container.dragover {
+    border-color: var(--accent);
+    background-color: var(--accent-glow);
+}
+
+/* Scan History and Admin Tables */
+.cyber-table {
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.cyber-table th {
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.cyber-table td {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+.cyber-table td a,
+.cyber-table td span,
+.cyber-table td strong,
+.cyber-table td div {
+    color: var(--text-primary);
+}
+
+/* Monospace text blocks */
+.email-preview-box {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Theme Switcher */
+.theme-switch-btn {
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.theme-switch-btn:hover {
+    color: var(--accent);
+}
+
+/* Footer Section */
+footer {
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    padding: 1.5rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Grid layout background animation details */
+.grid-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+    pointer-events: none;
+}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Register - SecureMail AI{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center py-5" style="min-height: 70vh;">
+    <div class="col-md-5">
+        <div class="cyber-card card-accent p-4">
+            <div class="text-center mb-4">
+                <i class="fa-solid fa-user-plus brand-icon fs-1 mb-2"></i>
+                <h2 class="fw-bold">Create Your Account</h2>
+                <p class="text-secondary small">Create an account to start scanning emails.</p>
+            </div>
+            
+            <form method="POST" action="{{ url_for('auth.register') }}">
+                <div class="mb-3">
+                    <label for="username" class="form-label text-secondary small fw-bold"> Username</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-user-ninja"></i></span>
+                        <input type="text" class="form-control cyber-input" id="username" name="username" placeholder="Enter your username" required>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="email" class="form-label text-secondary small fw-bold">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-envelope"></i></span>
+                        <input type="email" class="form-control cyber-input" id="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="password" class="form-label text-secondary small fw-bold"> Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-key"></i></span>
+                        <input type="password" class="form-control cyber-input" id="password" name="password" placeholder="Create a Password" required>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="confirm_password" class="form-label text-secondary small fw-bold">Confirm Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-key"></i></span>
+                        <input type="password" class="form-control cyber-input" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-cyber w-100 py-2">Create Account</button>
+            </form>
+            
+            <div class="text-center mt-4">
+                <p class="text-secondary small mb-0">
+                    Already have an account? <a href="{{ url_for('auth.login') }}" class="text-info fw-bold">Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Scan History - SecureMail AI{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h1 class="fw-bold m-0" style="font-family: 'Outfit';">Email Scan History</h1>
+    <p class="text-secondary m-0">View and manage previously analyzed emails.</p>
+</div>
+
+<!-- Filters Card -->
+<div class="cyber-card card-accent mb-4">
+    <form method="GET" action="{{ url_for('scanner.history') }}" class="row g-3 align-items-end">
+        <div class="col-md-6">
+            <label for="search" class="form-label text-secondary small fw-bold">Search Email</label>
+            <div class="input-group">
+                <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="text" class="form-control cyber-input" id="search" name="search" value="{{ search_query }}" placeholder="Search by sender, subject or content...">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label for="status" class="form-label text-secondary small fw-bold">Filter by Type</label>
+            <select class="form-select cyber-input" id="status" name="status">
+                <option value="">All Scans</option>
+                <option value="Safe" {% if filter_status == 'Safe' %}selected{% endif %}>Legitimate Only</option>
+                <option value="Spam" {% if filter_status == 'Spam' %}selected{% endif %}>Spam Only</option>
+                <option value="Phishing" {% if filter_status == 'Phishing' %}selected{% endif %}>Phishing Only</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-cyber w-100 py-2">Search</button>
+        </div>
+    </form>
+</div>
+
+<!-- Archive Table -->
+<div class="cyber-card">
+    {% if scans %}
+        <div class="table-responsive">
+            <table class="table cyber-table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Scan Date</th>
+                        <th>Subject</th>
+                        <th>Classification</th>
+                        <th>Risk Score</th>
+                        <th>Confidence</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for scan in scans %}
+                        <tr>
+                            <td class="small text-secondary">{{ scan.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td class="fw-semibold text-light text-truncate" style="max-width: 200px;">{{ scan.subject }}</td>
+                            <td>
+                                {% if scan.prediction == 'Safe' %}
+                                    <span class="badge badge-cyber badge-safe">Legitimate</span>
+                                {% elif scan.prediction == 'Spam' %}
+                                    <span class="badge badge-cyber badge-spam">Spam</span>
+                                {% else %}
+                                    <span class="badge badge-cyber badge-phish">Phishing</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="fw-bold {% if scan.risk_score < 30 %}text-success{% elif scan.risk_score < 70 %}text-warning{% else %}text-danger{% endif %}">{{ scan.risk_score }}%</span>
+                            </td>
+                            <td>
+                                <span class="fw-bold text-info">{{ scan.confidence }}%</span>
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="{{ url_for('scanner.result', scan_id=scan.id) }}" class="btn btn-outline-cyber btn-sm py-1 px-3">
+                                        View Report
+                                    </a>
+                                    <form method="POST" action="{{ url_for('scanner.delete', scan_id=scan.id) }}" onsubmit="return confirm('Are you sure you want to permanently delete this scan record?');">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm py-1 px-2">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            <i class="fa-solid fa-box-open text-secondary display-3 mb-3"></i>
+            <h5 class="fw-bold text-secondary">No matching records found</h5>
+            <p class="text-secondary small">Clear your filters or run a new scan session.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

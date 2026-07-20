@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Profile Settings - SecureMail AI{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h1 class="fw-bold m-0" style="font-family: 'Outfit';">Profile Settings</h1>
+    <p class="text-secondary m-0">Manage your account information and password</p>
+</div>
+
+<div class="row g-4">
+    <!-- Profile Info & Basic Settings -->
+    <div class="col-lg-6">
+        <div class="cyber-card card-accent h-100">
+            <h5 class="fw-bold mb-4"><i class="fa-solid fa-id-card me-2 text-info"></i>Profile Information</h5>
+            
+            <form method="POST" action="{{ url_for('auth.profile') }}">
+                <input type="hidden" name="action" value="update_profile">
+                
+                <div class="mb-3">
+                    <label for="username" class="form-label text-secondary small fw-bold">Username</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-user-ninja"></i></span>
+                        <input type="text" class="form-control cyber-input" id="username" name="username" value="{{ current_user.username }}" required>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="email" class="form-label text-secondary small fw-bold"> Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-envelope"></i></span>
+                        <input type="email" class="form-control cyber-input" id="email" name="email" value="{{ current_user.email }}" required>
+                    </div>
+                </div>
+                
+                <!-- Display Account Role & Metadata -->
+                <div class="row mb-4 p-2 bg-dark rounded border border-secondary mx-0 small">
+                    <div class="col-6">
+                        <span class="text-secondary d-block">Account Type:</span>
+                        <span class="fw-bold text-info">
+                            {% if current_user.is_admin %}<i class="fa-solid fa-user-shield me-1"></i>Administrator{% else %}User{% endif %}
+                        </span>
+                    </div>
+                    <div class="col-6 text-end">
+                        <span class="text-secondary d-block">Member Since:</span>
+                        <span class="fw-bold text-light">{{ current_user.created_at.strftime('%Y-%m-%d') }}</span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-cyber w-100 py-2">Update Profile</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Password Management -->
+    <div class="col-lg-6">
+        <div class="cyber-card card-accent h-100">
+            <h5 class="fw-bold mb-4"><i class="fa-solid fa-key me-2 text-info"></i>Change Password</h5>
+            
+            <form method="POST" action="{{ url_for('auth.profile') }}">
+                <input type="hidden" name="action" value="change_password">
+                
+                <div class="mb-3">
+                    <label for="old_password" class="form-label text-secondary small fw-bold">Current Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" class="form-control cyber-input" id="old_password" name="old_password" placeholder="Enter current password" required>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="new_password" class="form-label text-secondary small fw-bold">New Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-key"></i></span>
+                        <input type="password" class="form-control cyber-input" id="new_password" name="new_password" placeholder="At least 6 characters" required>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="confirm_password" class="form-label text-secondary small fw-bold">Confirm New Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-key"></i></span>
+                        <input type="password" class="form-control cyber-input" id="confirm_password" name="confirm_password" placeholder="Re-enter new password" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-cyber w-100 py-2">Update Password</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

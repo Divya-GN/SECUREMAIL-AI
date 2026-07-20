@@ -1,0 +1,44 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Environment variables
+.env
+.env.*
+
+# Flask
+instance/
+*.log
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# ML generated files
+*.pkl
+*.joblib
+
+# Generated reports
+reports/
+
+# Uploaded files
+uploads/
+
+# IDE files
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak

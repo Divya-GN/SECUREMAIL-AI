@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Login - SecureMail AI{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center py-5" style="min-height: 70vh;">
+    <div class="col-md-5">
+        <div class="cyber-card card-accent p-4">
+            <div class="text-center mb-4">
+                <i class="fa-solid fa-lock brand-icon fs-1 mb-2"></i>
+                <h2 class="fw-bold">Login To SecureMail AI</h2>
+                <p class="text-secondary small">Sign in to access your account.</p>
+            </div>
+            
+            <form method="POST" action="{{ url_for('auth.login') }}">
+                <!-- CSRF Protection (if any, standard HTML fields here) -->
+                <div class="mb-3">
+                    <label for="username_or_email" class="form-label text-secondary small fw-bold">Username or Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-user"></i></span>
+                        <input type="text" class="form-control cyber-input" id="username_or_email" name="username_or_email" placeholder="Enter your username or email" required>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="password" class="form-label text-secondary small fw-bold"> Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-key"></i></span>
+                        <input type="password" class="form-control cyber-input" id="password" name="password" placeholder="Enter your password" required>
+                    </div>
+                </div>
+                
+                <div class="mb-4 form-check">
+                    <input type="checkbox" class="form-check-input bg-dark border-secondary" id="remember" name="remember">
+                    <label class="form-check-label text-secondary small" for="remember">Remember Me</label>
+                </div>
+                
+                <button type="submit" class="btn btn-cyber w-100 py-2">
+                    <i class="fa-solid fa-right-to-bracket me-2"></i>Login
+                </button>
+            </form>
+            
+            <div class="text-center mt-4">
+                <p class="text-secondary small mb-0">
+                    Don't have an account? <a href="{{ url_for('auth.register') }}" class="text-info fw-bold">Register</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

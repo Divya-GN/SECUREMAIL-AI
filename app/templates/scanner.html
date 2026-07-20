@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Email Scanner - SecureMail AI{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h1 class="fw-bold m-0" style="font-family: 'Outfit';">Email Threat Scanner</h1>
+    <p class="text-secondary m-0">Analyze email content to detect Spam, Phishing, or Legitimate messages using AI-powered threat analysis.</p>
+</div>
+
+<div class="row g-4">
+    <!-- Scanner Form -->
+    <div class="col-lg-12">
+        <div class="cyber-card card-accent">
+            <h5 class="fw-bold mb-4"><i class="fa-solid fa-microscope me-2 text-info"></i>Email Analysis</h5>
+            
+            <form id="scan-form" method="POST" action="{{ url_for('scanner.scan') }}" enctype="multipart/form-data">
+                
+                <div id="manual-input-fields" style="transition: var(--transition);">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label for="sender" class="form-label text-secondary small fw-bold">Sender Email Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-at"></i></span>
+                                <input type="text" class="form-control cyber-input" id="sender" name="sender" placeholder="enter sender mail address">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="subject" class="form-label text-secondary small fw-bold">Email Subject</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-font"></i></span>
+                                <input type="text" class="form-control cyber-input" id="subject" name="subject" placeholder="Enter email subject">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="body" class="form-label text-secondary small fw-bold">Email Body</label>
+                        <textarea class="form-control cyber-input" id="body" name="body" rows="8" placeholder="Paste the text body of the email you wish to inspect..."></textarea>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-cyber w-100 py-3 fw-bold fs-6">
+                    <i class="fa-solid fa-shield-halved me-2"></i> Scan Email
+                </button>
+            </form>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}
